@@ -15,6 +15,7 @@ const NetworkSwitcher = () => {
           console.error('Error fetching network:', error);
         }
       }
+      checkNetwork();
     };
 
     checkNetwork();
@@ -24,36 +25,67 @@ const NetworkSwitcher = () => {
     if (window.ethereum) {
       try {
         await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [
-            {
-              chainId: '0xAA36A7', // Sepolia network ID in hexadecimal
-              chainName: 'Sepolia Test Network',
-              rpcUrls: ['https://eth-sepolia.g.alchemy.com/v2/0-1AhQ9wGWIiSC_QlmQOJJ-eIEY8l1-r'],
-              nativeCurrency: {
-                name: 'Sepolia ETH',
-                symbol: 'ETH',
-                decimals: 18,
-              },
-              blockExplorerUrls: ['https://sepolia.etherscan.io/'],
-            },
-          ],
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0xAA36A7' }], 
         });
       } catch (error) {
-        console.error('Error switching network:', error);
+        // If the error code indicates that the network hasn't been added yet, add it
+        if (error.code === 4902) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: '0xAA36A7',
+                  chainName: 'Sepolia Test Network',
+                  rpcUrls: [import.meta.env.VITE_ALCHEMY_URL],
+                  nativeCurrency: {
+                    name: 'Sepolia ETH',
+                    symbol: 'ETH',
+                    decimals: 18,
+                  },
+                  blockExplorerUrls: ['https://sepolia.etherscan.io/'],
+                },
+              ],
+            });
+          } catch (addError) {
+            console.error('Error adding Sepolia network:', addError);
+          }
+        } else {
+          console.error('Error switching network:', error);
+        }
       }
+    } else {
+      console.error('Ethereum object not found, make sure you have MetaMask installed.');
     }
+  };
+  
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%', 
+  };
+
+  const switchButton = {
+    padding: '10px 20px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    width:'100%',
+    marginTop:'10px'
   };
 
   return (
-    <>
+    <div style={containerStyle}>
+      {console.log(currentNetwork)}
       {currentNetwork && currentNetwork !== 0xAA36A7 && (
-        <button onClick={switchToSepolia}>
+        <button onClick={switchToSepolia} style={switchButton}>
           Switch to Sepolia Network
         </button>
       )}
-    </>
+    </div>
   );
 };
 
 export default NetworkSwitcher;
+

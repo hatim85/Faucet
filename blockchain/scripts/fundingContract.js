@@ -4,8 +4,8 @@ const { ethers } = require("hardhat");
 
 async function main() {
     // Get the contract address and amount to fund
-    const contractAddress = "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e";
-    const amount = ethers.parseEther("100"); // Amount to fund in Ether
+    const contractAddress = "0x991c5Cded504cEB18FEC7CB33f0d057D9071266c";
+    const amount = ethers.parseEther("10"); // Amount to fund in Ether
 
     // Get the deployer account
     const [deployer] = await ethers.getSigners();

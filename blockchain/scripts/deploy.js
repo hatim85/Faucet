@@ -5,8 +5,8 @@ async function main() {
   const ethers = hre.ethers;
 
   // Define the token address and withdrawal limit
-  const tokenAddress = "0xBac55D78D3c43b949c3B82AB74e75b2cae579506"; // Replace with the actual token address
-  const withdrawalLimit = ethers.parseEther("0.5"); // 1 ETH
+  const tokenAddress = "0xB99323577C304720dBA8a558C96c72A32852FB02"; // Replace with the actual token address
+  const withdrawalLimit = ethers.parseEther("10000"); 
 
   // Get the Faucet contract factory
   const Faucet = await ethers.getContractFactory("Faucet");

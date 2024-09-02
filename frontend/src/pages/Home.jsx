@@ -14,7 +14,7 @@ function Home() {
   const [isTransactionModalOpen, setTransactionModalOpen] = useState(false);
   const [isHistoryModalOpen, setHistoryModalOpen] = useState(false);
   const [amount, setAmount] = useState(null);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); 
 
   // Expiration time in milliseconds (15 minutes)
   const expirationTime = 15 * 60 * 1000;
@@ -78,7 +78,7 @@ function Home() {
       return;
     }
 
-    setLoading(true); // Set loading to true when starting the transaction
+    setLoading(true); 
 
     try {
       const { signer, contract } = Ethers();

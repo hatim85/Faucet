@@ -5,7 +5,7 @@ async function main() {
   const ethers = hre.ethers;
 
   // Define the initial supply (in tokens with 18 decimals)
-  const initialSupply = ethers.parseUnits("1000", 18); // Example: 1,000,000 tokens
+  const initialSupply = ethers.parseUnits("1000000", 18); // Example: 1,000,000 tokens
 
   // Get the GSMCToken contract factory
   const myToken = await ethers.getContractFactory("MyToken");
