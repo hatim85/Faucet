@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: transparent;
+  font-size: 20px;
+  z-index: 10;
+  color: black;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(15px);
+  transition: background-color 0.3s ease;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+}
+
+.wallet-btn {
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+  .wallet-btn.connected {
+    display: none;
+  }
+
+  .wallet-btn.not-connected {
+    display: block;
+  }
+}

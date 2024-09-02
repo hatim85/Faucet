@@ -1,0 +1,26 @@
+.modal {
+    background: white;
+    border-radius: 10px;
+    max-width: 500px;
+    padding: 20px;
+    position: relative;
+    margin: 50px auto;
+    outline: none;
+  }
+  
+  .modal h2 {
+    margin-top: 0;
+  }
+
+  .close-button{
+    border: none;
+  }
+
+  .close-button:hover {
+    color: #e74c3c;
+  }
+
+  .transaction-header{
+    display: flex;
+    justify-content: space-between;
+  }
