@@ -18,6 +18,16 @@ async function main() {
   await faucet.waitForDeployment();
 
   console.log("Faucet deployed to:", faucet.target);
+
+  const Token = await ethers.getContractAt("MyToken", tokenAddress);
+
+  const mintAmount = ethers.parseUnits("10000", 18); // Example: 10,000 GSMC tokens to fund the faucet
+
+  // Transfer tokens from your wallet to the faucet
+  const transferTx = await Token.transfer(faucet.target, mintAmount);
+  await transferTx.wait();
+
+  console.log(`Minted ${mintAmount.toString()} GSMC tokens to the Faucet contract`);
 }
 
 main()

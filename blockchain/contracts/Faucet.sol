@@ -26,7 +26,7 @@ contract Faucet {
     function requestTokens() external {
         require(FIXED_AMOUNT <= withdrawalLimit, "Amount exceeds withdrawal limit");
         require(token.balanceOf(address(this)) >= FIXED_AMOUNT, "Insufficient contract balance");
-        require(block.timestamp - lastWithdrawalTime[msg.sender] >= 1 days, "Can only withdraw once every 24 hours");
+        // require(block.timestamp - lastWithdrawalTime[msg.sender] >= 1 days, "Can only withdraw once every 24 hours");
 
         lastWithdrawalTime[msg.sender] = block.timestamp;
         token.transfer(msg.sender, FIXED_AMOUNT);
