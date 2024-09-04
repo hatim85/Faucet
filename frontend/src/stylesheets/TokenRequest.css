@@ -8,7 +8,7 @@
   }
 
   .addDifferentWallet{
-    margin-bottom: 10px;
+    width: 100%;
   }
 
   .differentWalletCont{
@@ -39,11 +39,6 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
-  }
-
-  .button-grp{
-    display: flex;
-    justify-content: space-evenly;
   }
 
   .input-container {
@@ -112,6 +107,11 @@
 
   .error-message{
     color: red;
+  }
+
+  .button-grp button{
+    width: 100%;
+    margin-top: 10px;
   }
 
   @media (max-width: 768px) {
