@@ -17,7 +17,7 @@ function TransactionModal({ isOpen, onClose, transactionDetails }) {
           <FaTimes />
         </button>
       </div>
-      {console.log(transactionDetails)}
+      {/* {console.log(transactionDetails)} */}
       {transactionDetails ? (
         <>
           <p>{transactionDetails.message}</p>

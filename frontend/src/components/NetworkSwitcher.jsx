@@ -17,8 +17,6 @@ const NetworkSwitcher = () => {
       }
       checkNetwork();
     };
-
-    checkNetwork();
   }, []);
 
   const switchToSepolia = async () => {
@@ -77,7 +75,7 @@ const NetworkSwitcher = () => {
 
   return (
     <div style={containerStyle}>
-      {console.log(currentNetwork)}
+      {/* {console.log(currentNetwork)} */}
       {currentNetwork && currentNetwork !== 0xAA36A7 && (
         <button onClick={switchToSepolia} style={switchButton}>
           Switch to Sepolia Network

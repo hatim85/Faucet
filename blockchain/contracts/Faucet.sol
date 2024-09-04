@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.26;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
@@ -19,19 +19,30 @@ contract Faucet {
         withdrawalLimit = _withdrawalLimit;
     }
 
-     function getRequestAmount() external view returns (uint256) {
+    function getRequestAmount() external view returns (uint256) {
         return requestAmount;
     }
 
     function requestTokens() external {
         require(FIXED_AMOUNT <= withdrawalLimit, "Amount exceeds withdrawal limit");
         require(token.balanceOf(address(this)) >= FIXED_AMOUNT, "Insufficient contract balance");
-        // require(block.timestamp - lastWithdrawalTime[msg.sender] >= 1 days, "Can only withdraw once every 24 hours");
+
+        uint256 lastRequest = lastWithdrawalTime[msg.sender];
+        require(block.timestamp - lastRequest >= 1 days, "Can only withdraw once every 24 hours");
 
         lastWithdrawalTime[msg.sender] = block.timestamp;
         token.transfer(msg.sender, FIXED_AMOUNT);
 
         emit TokensRequested(msg.sender, FIXED_AMOUNT);
+    }
+
+    function timeUntilNextRequest(address _user) external view returns (uint256) {
+        uint256 lastRequest = lastWithdrawalTime[_user];
+        if (block.timestamp - lastRequest >= 1 days) {
+            return 0; // No time left, can request now
+        } else {
+            return 1 days - (block.timestamp - lastRequest);
+        }
     }
 
     function deposit(uint256 _amount) external onlyOwner {

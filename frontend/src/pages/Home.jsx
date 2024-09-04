@@ -14,10 +14,11 @@ function Home() {
   const [isTransactionModalOpen, setTransactionModalOpen] = useState(false);
   const [isHistoryModalOpen, setHistoryModalOpen] = useState(false);
   const [amount, setAmount] = useState(null);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
-  // Expiration time in milliseconds (15 minutes)
-  const expirationTime = 15 * 60 * 1000;
+  // Expiration time in milliseconds (1 day)
+  const expirationTime = 24 * 60 * 60 * 1000;
+
 
   useEffect(() => {
     const fetchAmount = async () => {
@@ -62,29 +63,42 @@ function Home() {
       const { signer } = Ethers();
       const address = await signer.getAddress();
       setWalletAddress(address);
-      console.log("Wallet connected:", address);
+      // console.log("Wallet connected:", address);
 
-      // Store wallet address and timestamp in localStorage
       localStorage.setItem('walletAddress', address);
       localStorage.setItem('timestamp', Date.now().toString());
     } catch (error) {
-      console.error("Failed to connect wallet:", error);
+      // console.error("Failed to connect wallet:", error);
     }
   };
 
+  const clearMetamask = async () => {
+    setWalletAddress('');
+    localStorage.removeItem('walletAddress')
+    localStorage.removeItem('transactions')
+    localStorage.removeItem('timestamp')
+    // console.log("metamask wallet cleared")
+  }
+
   const requestTokens = async () => {
+
     if (amount === null) {
       console.error("Amount is not yet fetched from the contract.");
       return;
     }
 
-    setLoading(true); 
+    setLoading(true);
 
     try {
       const { signer, contract } = Ethers();
 
       if (!contract) {
         console.error("Contract is not initialized");
+        return;
+      }
+
+      if (typeof contract.timeUntilNextRequest !== 'function') {
+        console.error("Contract does not have timeUntilNextRequest method");
         return;
       }
 
@@ -97,7 +111,7 @@ function Home() {
         gasLimit: ethers.utils.hexlify(300000),
       });
       await tx.wait();
-      console.log("Tokens requested!");
+      // console.log("Tokens requested!");
       const txHash = tx.hash;
 
       const newTransaction = {
@@ -157,8 +171,8 @@ function Home() {
   return (
     <div>
       <Header connectWallet={connectWallet} walletAddress={walletAddress} />
-      <TokenRequest requestTokens={requestTokens} viewTransactions={viewTransactions} MetamaskWalletAddress={walletAddress} />
-      {loading && <Loading />} {/* Render Loading component if loading is true */}
+      <TokenRequest requestTokens={requestTokens} viewTransactions={viewTransactions} MetamaskWalletAddress={walletAddress} clearMetamask={clearMetamask} />
+      {loading && <Loading />}
       <TransactionModal
         isOpen={isTransactionModalOpen}
         onClose={() => setTransactionModalOpen(false)}
