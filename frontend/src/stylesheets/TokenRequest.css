@@ -19,6 +19,10 @@
   .token-request h2 {
     margin-bottom: 20px;
   }
+
+  #wallet-address{
+    width: 100%;
+  }
   
   .wallet-address{
     color: black;
@@ -45,10 +49,9 @@
     position: relative;
     margin: 20px 0;
     width: 100%;
-    max-width: 300px;
+    display: flex;
   }
   
-  /* Input box styling */
   .input-container input {
     width: 100%;
     padding: 12px 20px;
@@ -60,7 +63,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  /* Label styling */
   .input-container label {
     position: absolute;
     top: 13%;
@@ -74,7 +76,6 @@
     transition: 0.3s ease all;
   }
   
-  /* Focus effect: Input border turns blue, label moves up */
   .input-container input:focus {
     border-color: #007bff;
   }

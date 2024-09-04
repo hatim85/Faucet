@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Faucet {
     address public owner;
-    uint256 public constant FIXED_AMOUNT = 0.5 ether; // Assuming 500 GSMC tokens with 18 decimals
+    uint256 public constant FIXED_AMOUNT = 0.5*10**18; 
     IERC20 public token;
     uint256 public withdrawalLimit;
     uint256 public requestAmount;
