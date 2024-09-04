@@ -43,7 +43,6 @@ function Home() {
       setWalletAddress(savedWalletAddress);
     } else {
       localStorage.removeItem('walletAddress');
-      localStorage.removeItem('transactions');
       localStorage.removeItem('timestamp');
     }
 
@@ -75,7 +74,6 @@ function Home() {
   const clearMetamask = async () => {
     setWalletAddress('');
     localStorage.removeItem('walletAddress')
-    localStorage.removeItem('transactions')
     localStorage.removeItem('timestamp')
     // console.log("metamask wallet cleared")
   }
